@@ -9,7 +9,7 @@ const ns = "http://www.w3.org/2000/svg";
 const circleHolder = document.querySelector("#circleHolder");
 const paths = [];
 let t = 0;
-let multiplier = 200;
+let multiplier = 300;
 let hsl = `hsl(${Math.random() * 360}, 50%, 50%)`;
 
 const initPaths = (num) => {
@@ -21,7 +21,7 @@ const initPaths = (num) => {
     p.setAttribute("stroke-opacity", i / num);
     p.setAttribute("fill-opacity", 0.3);
     p.setAttribute("fill", "none");
-    p.setAttribute("transform", `translate(${w / 2},${h / 2})`);
+    p.setAttribute("transform", `translate(${w / 2},${9 * i})`);
 
     circleHolder.appendChild(p);
     paths.push(p);
@@ -34,9 +34,8 @@ const getCirclePoints = (radius) => {
     const angle = (Math.PI / 180) * (i + startAngle);
     const xval = (Math.sin(angle) * radius) / multiplier;
     const yval = (Math.sin(angle) * radius) / multiplier;
-    const roffset =
-      noise(xval + t / multiplier, yval + t / multiplier, t / multiplier) * 40;
-    const xpos = Math.sin(angle) * radius;
+    const roffset = noise(xval + t / multiplier, yval + t, t) * 40;
+    const xpos = Math.sin(angle) * (radius + roffset);
     const ypos = Math.cos(angle) * (radius + roffset);
     const pt = { x: xpos, y: ypos };
     arr.push(pt);
@@ -68,13 +67,13 @@ const drawConcentricCircles = (startRadius, gap) => {
     path.setAttribute("d", str);
     radius += gap;
   });
-  t += 1;
+  t += 0.01;
 };
 
 const update = () => {
-  drawConcentricCircles(59, 6);
+  drawConcentricCircles(40, 5);
   window.requestAnimationFrame(update);
 };
 
-initPaths(40);
+initPaths(70);
 update();
