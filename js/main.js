@@ -37,7 +37,7 @@ tiltRange.addEventListener("input", (e) => {
 });
 
 zoomRange.addEventListener("input", (e) => {
-  zoom = -1 * parseInt(e.target.value);
+  zoom = -1 * (1000 - parseInt(e.target.value));
   const str = `${zoom} ${zoom} ${1000 + -2 * zoom} ${1000 + -2 * zoom}`;
   svg.setAttribute("viewBox", str);
   console.log(zoom);
