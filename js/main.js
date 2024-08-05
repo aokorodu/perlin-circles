@@ -14,11 +14,14 @@ let hsl = `hsl(${Math.random() * 360}, 50%, 50%)`;
 let smoothness = 300;
 let tilt = 0;
 let gap = 5;
+let zoom = -100;
 
+const svg = document.querySelector("svg");
 const smoothnessRange = document.querySelector("#smoothness");
 const tiltRange = document.querySelector("#tilt");
 tiltRange.setAttribute("value", tilt);
 const gapRange = document.querySelector("#gap");
+const zoomRange = document.querySelector("#zoom");
 
 smoothnessRange.addEventListener("input", (e) => {
   smoothness = e.target.value * 10;
@@ -33,7 +36,12 @@ tiltRange.addEventListener("input", (e) => {
   tilt = parseFloat(e.target.value);
 });
 
-const retilt = () => {};
+zoomRange.addEventListener("input", (e) => {
+  zoom = -1 * parseInt(e.target.value);
+  const str = `${zoom} ${zoom} ${1000 + -2 * zoom} ${1000 + -2 * zoom}`;
+  svg.setAttribute("viewBox", str);
+  console.log(zoom);
+});
 
 const initPaths = (num) => {
   for (let i = 0; i < num; i++) {
