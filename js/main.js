@@ -12,11 +12,12 @@ let t = 0;
 let hsl = `hsl(${Math.random() * 360}, 50%, 50%)`;
 
 let smoothness = 300;
-let tilt = 9;
+let tilt = 0;
 let gap = 5;
 
 const smoothnessRange = document.querySelector("#smoothness");
 const tiltRange = document.querySelector("#tilt");
+tiltRange.setAttribute("value", tilt);
 const gapRange = document.querySelector("#gap");
 
 smoothnessRange.addEventListener("input", (e) => {
@@ -43,7 +44,7 @@ const initPaths = (num) => {
     p.setAttribute("stroke-opacity", i / num);
     p.setAttribute("fill-opacity", 0.3);
     p.setAttribute("fill", "none");
-    p.setAttribute("transform", `translate(${w / 2},${tilt * i})`);
+    p.setAttribute("transform", `translate(${w / 2},${h / 2})`);
 
     circleHolder.appendChild(p);
     paths.push(p);
@@ -53,7 +54,7 @@ const getCirclePoints = (radius) => {
   const arr = [];
   let startAngle = 0;
   for (let i = 0; i < 360; i++) {
-    const angle = (Math.PI / 180) * (i + startAngle);
+    const angle = (Math.PI / 180) * (startAngle + i);
     const xval = (Math.sin(angle) * radius) / smoothness;
     const yval = (Math.sin(angle) * radius) / smoothness;
     const roffset = noise(xval + t / smoothness, yval + t, t) * 40;
@@ -62,6 +63,7 @@ const getCirclePoints = (radius) => {
     const pt = { x: xpos, y: ypos };
     arr.push(pt);
     startAngle += 1;
+    if (startAngle > 360) startAngle = 360 - startAngle;
   }
 
   return arr;
@@ -88,6 +90,8 @@ const drawConcentricCircles = (startRadius, gap) => {
     const str = getPathString(getCirclePoints(radius));
     path.setAttribute("d", str);
     path.setAttribute("transform", `translate(${w / 2},${tilt * index})`);
+    const newY = h / 2 - (tilt / 10) * (h / 2);
+    circleHolder.setAttribute("transform", `translate(0, ${newY})`);
     radius += gap;
   });
   t += 0.01;
