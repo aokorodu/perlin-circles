@@ -9,13 +9,17 @@ const ns = "http://www.w3.org/2000/svg";
 const circleHolder = document.querySelector("#circleHolder");
 const paths = [];
 let t = 0;
-let hsl = `hsl(${Math.random() * 360}, 50%, 50%)`;
+let hsl = `hsl(${Math.random() * 360}, 100%, 50%)`;
 
 let smoothness = 300;
 let tilt = 0;
 let gap = 5;
 let zoom = -100;
 
+const startColor = document.querySelector("#startColor");
+const stopColor = document.querySelector("#stopColor");
+startColor.setAttribute("stop-color", hsl);
+stopColor.setAttribute("stop-color", hsl);
 const svg = document.querySelector("svg");
 const smoothnessRange = document.querySelector("#smoothness");
 const tiltRange = document.querySelector("#tilt");
@@ -47,13 +51,11 @@ const initPaths = (num) => {
   for (let i = 0; i < num; i++) {
     const p = document.createElementNS(ns, "path");
     p.setAttribute("d", "");
-    p.setAttribute("stroke", hsl);
     p.setAttribute("stroke-width", 2);
     p.setAttribute("stroke-opacity", i / num);
-    p.setAttribute("fill-opacity", 0.3);
     p.setAttribute("fill", "none");
     p.setAttribute("transform", `translate(${w / 2},${h / 2})`);
-
+    p.setAttribute("stroke", "url(#gradient)");
     circleHolder.appendChild(p);
     paths.push(p);
   }
