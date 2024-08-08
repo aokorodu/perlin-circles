@@ -22,7 +22,7 @@ body {
 
 /* use viewport-relative units to cover page fully */
 body {
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
 }
 
