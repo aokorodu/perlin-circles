@@ -66,7 +66,7 @@ const getCirclePoints = (radius) => {
   for (let i = 0; i < 360; i++) {
     const angle = (Math.PI / 180) * (startAngle + i);
     const xval = (Math.sin(angle) * radius) / smoothness;
-    const yval = (Math.sin(angle) * radius) / smoothness;
+    const yval = (Math.cos(angle) * radius) / smoothness;
     const roffset = noise(xval + t / smoothness, yval + t, t) * 40;
     const xpos = Math.sin(angle) * (radius + roffset);
     const ypos = Math.cos(angle) * (radius + roffset);
