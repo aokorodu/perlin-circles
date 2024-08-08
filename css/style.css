@@ -13,19 +13,33 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* override browser default */
+html,
 body {
-  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* use viewport-relative units to cover page fully */
+body {
   height: 100vh;
+  width: 100vw;
+}
+
+/* include border and padding in element width and height */
+* {
+  box-sizing: border-box;
 }
 
 #holder {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   height: 100%;
   gap: 20px;
+  padding-top: 30px;
 }
 
 #controls {
