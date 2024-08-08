@@ -9,7 +9,7 @@ const ns = "http://www.w3.org/2000/svg";
 const circleHolder = document.querySelector("#circleHolder");
 const paths = [];
 let t = 0;
-let hsl = `hsl(${Math.random() * 360}, 100%, 50%)`;
+let hsl = `hsl(${Math.random() * 360}, 100%, 60%)`;
 
 let smoothness = 300;
 let tilt = 0;
