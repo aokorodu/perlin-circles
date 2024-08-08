@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <script type="module" crossorigin src="./assets/index-COO9LRhW.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B3n2NnWI.css">
+  </head>
+  <body>
+    <div id="holder">
+      <svg viewBox="-100 -100 1200 1200">
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop
+              id="startColor"
+              offset="0%"
+              stop-color="hsl(300,50%,50%)"
+              stop-opacity="1"
+            />
+            <stop
+              id="stopColor"
+              offset="100%"
+              stop-color="hsl(300,50%,50%)"
+              stop-opacity=".2"
+            />
+          </linearGradient>
+        </defs>
+        <g id="circleHolder"></g>
+      </svg>
+      <div id="controls">
+        <label>
+          smoothness
+          <input
+            id="smoothness"
+            type="range"
+            min="1"
+            max="100"
+            value="30"
+            step=".1"
+          />
+        </label>
+
+        <label>
+          tilt
+          <input id="tilt" type="range" min="0" max="20" value="9" step=".1" />
+        </label>
+
+        <label>
+          gap
+          <input id="gap" type="range" min="1" max="20" value="5" step=".1" />
+        </label>
+
+        <label>
+          zoom
+          <input
+            id="zoom"
+            type="range"
+            min="0"
+            max="1000"
+            value="900"
+            step="1"
+          />
+        </label>
+      </div>
+    </div>
+
+  </body>
+</html>
