@@ -14,7 +14,8 @@ let hsl = `hsl(${Math.random() * 360}, 100%, 60%)`;
 let smoothness = 300;
 let tilt = 0;
 let gap = 5;
-let zoom = -100;
+let zoom = 1200;
+let panY = 0;
 
 const startColor = document.querySelector("#startColor");
 const stopColor = document.querySelector("#stopColor");
@@ -26,6 +27,7 @@ const tiltRange = document.querySelector("#tilt");
 tiltRange.setAttribute("value", tilt);
 const gapRange = document.querySelector("#gap");
 const zoomRange = document.querySelector("#zoom");
+const panRange = document.querySelector("#pan");
 
 smoothnessRange.addEventListener("input", (e) => {
   smoothness = e.target.value * 10;
@@ -36,15 +38,26 @@ gapRange.addEventListener("input", (e) => {
 });
 
 tiltRange.addEventListener("input", (e) => {
-  console.log(e.target.value);
+  console.log("tilt: ", e.target.value);
   tilt = parseFloat(e.target.value);
 });
 
 zoomRange.addEventListener("input", (e) => {
-  zoom = -1 * (1000 - parseInt(e.target.value));
-  const str = `${zoom} ${zoom} ${1000 + -2 * zoom} ${1000 + -2 * zoom}`;
+  zoom = parseInt(e.target.value);
+  const diff = 1000 - zoom;
+  // zoom = -1 * (1000 - parseInt(e.target.value)) - panY;
+  const str = `${diff / 2} ${diff / 2 - panY} ${zoom} ${zoom}`;
+  console.log("viewbox: ", str);
   svg.setAttribute("viewBox", str);
-  console.log(zoom);
+  //console.log(zoom);
+});
+
+panRange.addEventListener("input", (e) => {
+  panY = parseInt(e.target.value);
+  const diff = 1000 - zoom;
+  const str = `${diff / 2} ${diff / 2 - panY} ${zoom} ${zoom}`;
+  console.log("viewbox: ", str);
+  svg.setAttribute("viewBox", str);
 });
 
 const initPaths = (num) => {
@@ -96,14 +109,21 @@ const getPathString = (array) => {
 
 const drawConcentricCircles = (startRadius, gap) => {
   let radius = startRadius;
+  const startY = h / 2 - tilt;
+  const num = paths.length;
+  const g = (tilt * 2) / num;
   paths.forEach((path, index) => {
+    const ypos = startY + index * g;
+    // console.log("ypos: ", ypos);
     const str = getPathString(getCirclePoints(radius));
     path.setAttribute("d", str);
-    path.setAttribute("transform", `translate(${w / 2},${tilt * index})`);
-    const newY = h / 2 - (tilt / 10) * (h / 2);
-    circleHolder.setAttribute("transform", `translate(0, ${newY})`);
+    path.setAttribute("transform", `translate(${w / 2},${ypos})`);
+
     radius += gap;
   });
+  // console.log("startY:", startY);
+  // const newY = -tilt;
+  // circleHolder.setAttribute("transform", `translate(0, ${newY})`);
   t += 0.01;
 };
 

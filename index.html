@@ -42,7 +42,14 @@
 
         <label>
           tilt
-          <input id="tilt" type="range" min="0" max="20" value="9" step=".1" />
+          <input
+            id="tilt"
+            type="range"
+            min="-500"
+            max="500"
+            value="0"
+            step=".1"
+          />
         </label>
 
         <label>
@@ -55,9 +62,20 @@
           <input
             id="zoom"
             type="range"
-            min="0"
-            max="1000"
-            value="900"
+            min="50"
+            max="2000"
+            value="1200"
+            step="1"
+          />
+        </label>
+        <label>
+          pan
+          <input
+            id="pan"
+            type="range"
+            min="-500"
+            max="500"
+            value="0"
             step="1"
           />
         </label>
