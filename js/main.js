@@ -4,7 +4,8 @@ import "../css/style.css";
 const noise = createNoise3D();
 const w = 1000;
 const h = 1000;
-const r = 300;
+let startRadius = 50;
+const numberOfRings = 70;
 const ns = "http://www.w3.org/2000/svg";
 const circleHolder = document.querySelector("#circleHolder");
 const paths = [];
@@ -28,6 +29,12 @@ tiltRange.setAttribute("value", tilt);
 const gapRange = document.querySelector("#gap");
 const zoomRange = document.querySelector("#zoom");
 const panRange = document.querySelector("#pan");
+const pointinessRange = document.querySelector("#pointiness");
+
+pointinessRange.addEventListener("input", (e) => {
+  startRadius = parseFloat(e.target.value);
+  console.log("startRadius: ", startRadius);
+});
 
 smoothnessRange.addEventListener("input", (e) => {
   smoothness = e.target.value * 10;
@@ -121,16 +128,13 @@ const drawConcentricCircles = (startRadius, gap) => {
 
     radius += gap;
   });
-  // console.log("startY:", startY);
-  // const newY = -tilt;
-  // circleHolder.setAttribute("transform", `translate(0, ${newY})`);
   t += 0.01;
 };
 
 const update = () => {
-  drawConcentricCircles(40, gap);
+  drawConcentricCircles(startRadius, gap);
   window.requestAnimationFrame(update);
 };
 
-initPaths(70);
+initPaths(numberOfRings);
 update();
